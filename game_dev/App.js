@@ -8,7 +8,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       <Text>{el}</Text>
-      <Button title="push me!" onPress={() => el_change("You pressed me!")}/>
+      <Button title="push me!!!" onPress={() => el_change("PRESS HARDER!")}/>
       <StatusBar style="auto" />
     </View>
   );
