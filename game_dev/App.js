@@ -23,7 +23,6 @@ export default function App() {
     <View style={styles.container}>
       <Text>{el}</Text>
       <Button title="push me!!!" onPress={() => el_change("PRESS HARDER!")}/>
-      <StatusBar style="auto" />
     </View>
   );
 }
