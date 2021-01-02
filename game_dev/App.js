@@ -7,7 +7,7 @@ const createGrid = (length) => {
   for (let i = 0; i < length; i++) {
     let temp = [];
     for (let j = 0; j < length; j++) {
-      temp.push({ id: counter, state: 0 });
+      temp.push({ key: counter, state: 0 });
       counter++;
     }
     eval(`state.row${i} = temp`);
@@ -18,11 +18,22 @@ const createGrid = (length) => {
 export default function App() {
   let state = createGrid(5);
   console.log(state);
-  const [el, el_change] = useState("Welcome to this test app!");
   return (
     <View style={styles.container}>
-      <Text>{el}</Text>
-      <Button title="push me!!!" onPress={() => el_change("PRESS HARDER!")}/>
+      {state.row0.map(element => {
+        return <View>
+          <Button title={`${element.key}`} key={`${element.key}`} />
+        </View>
+      })}
     </View>
-  );
+  )
 }
+
+
+// const [el, el_change] = useState("Welcome to this test app!");
+// return (
+//   <View style={styles.container}>
+//     <Text>{el}</Text>
+//     <Button title="push me!!!" onPress={() => el_change("PRESS HARDER!")}/>
+//   </View>
+// );
