@@ -34,15 +34,19 @@ const makeGrid = (length) => {
   return (
     <View style={styles.col_container}>
       {state.map(arr => {
+        return makeRow(arr);
+      })}
+    </View>
+  )
+}
+
+const makeRow = (row) => {
+  return (
+    <View style={styles.row_container}>
+      {row.map(element => {
         return (
-          <View style={styles.row_container}>
-            {arr.map(element => {
-              return (
-                <View key={`${element.key}`}>
-                  <Button title={`${element.key}`} />
-                </View>
-              )
-            })}
+          <View key={`${element.key}`}>
+            <Button title={`${element.key}`} />
           </View>
         )
       })}
