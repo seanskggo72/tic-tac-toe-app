@@ -8,7 +8,7 @@
 /////////////////////////////////////////////////////////////////////////////////
 
 import React from 'react';
-import { View, StyleSheet, Button } from 'react-native';
+import { Text, View, StyleSheet, ImageBackground, Pressable } from 'react-native';
 
 /////////////////////////////////////////////////////////////////////////////////
 // Functions
@@ -28,6 +28,26 @@ const createGrid = (length) => {
   return state;
 }
 
+// Helper function for makeGrid -> given a row array, return
+// the buttons for that row in JSX
+const makeRow = (row, index) => {
+  return (
+    <View style={styles.row_container} key={index}>
+      {row.map(element => {
+        return (
+          <View key={String(element.key)}>
+            <Pressable style={styles.button} android_ripple={{ color: 'aqua' }}>
+              <ImageBackground source={require('./assets/circle.png')} style={styles.image}>
+                <Text style={styles.text}>{String(element.key)}</Text>
+              </ImageBackground>
+            </Pressable>
+          </View>
+        )
+      })}
+    </View>
+  )
+}
+
 // Return 2D grid of buttons
 const makeGrid = (length) => {
   let state = createGrid(length);
@@ -40,22 +60,6 @@ const makeGrid = (length) => {
   )
 }
 
-// Helper function for makeGrid -> given a row array, return
-// the buttons for that row in JSX
-const makeRow = (row, index) => {
-  return (
-    <View style={styles.row_container} key={index}>
-      {row.map(element => {
-        return (
-          <View key={`${element.key}`}>
-            <Button title={`${element.key}`} />
-          </View>
-        )
-      })}
-    </View>
-  )
-}
-
 /////////////////////////////////////////////////////////////////////////////////
 // Style
 /////////////////////////////////////////////////////////////////////////////////
@@ -63,17 +67,31 @@ const makeRow = (row, index) => {
 const styles = StyleSheet.create({
   col_container: {
     flex: 1,
-    backgroundColor: 'aqua',
+    backgroundColor: '#29dfe6',
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'column',
   },
   row_container: {
-    backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row'
   },
+  button: {
+    alignItems: "center",
+    backgroundColor: "#ffe419",
+    width: 50,
+    height: 50,
+    elevation: 25, // Android
+  },
+  image: {
+    width: 50,
+    height: 50,
+  },
+  text: {
+    padding: 15,
+    textAlign: 'center',
+  }
 });
 
 /////////////////////////////////////////////////////////////////////////////////
