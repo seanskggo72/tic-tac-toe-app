@@ -40,6 +40,8 @@ const makeGrid = (length) => {
   )
 }
 
+// Helper function for makeGrid -> given a row array, return
+// the buttons for that row in JSX
 const makeRow = (row) => {
   return (
     <View style={styles.row_container}>
