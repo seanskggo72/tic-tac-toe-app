@@ -33,8 +33,8 @@ const makeGrid = (length) => {
   let state = createGrid(length);
   return (
     <View style={styles.col_container}>
-      {state.map(arr => {
-        return makeRow(arr);
+      {state.map((arr, index) => {
+        return makeRow(arr, index);
       })}
     </View>
   )
@@ -42,9 +42,9 @@ const makeGrid = (length) => {
 
 // Helper function for makeGrid -> given a row array, return
 // the buttons for that row in JSX
-const makeRow = (row) => {
+const makeRow = (row, index) => {
   return (
-    <View style={styles.row_container}>
+    <View style={styles.row_container} key={index}>
       {row.map(element => {
         return (
           <View key={`${element.key}`}>
@@ -63,7 +63,7 @@ const makeRow = (row) => {
 const styles = StyleSheet.create({
   col_container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: 'aqua',
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'column',
