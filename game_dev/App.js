@@ -9,8 +9,9 @@
 
 import 'react-native-gesture-handler';
 import React from 'react';
-import makeGrid from './Grid';
-import { Text, View, Button } from 'react-native';
+import makeGrid from './src/Grid';
+import HomeScreen from './src/Home';
+import InstructionsScreen from './src/Instructions';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
@@ -19,22 +20,17 @@ import { createStackNavigator } from '@react-navigation/stack';
 /////////////////////////////////////////////////////////////////////////////////
 
 // Homescreen Component
-const Homescreen = ({ navigation }) => {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Button
-        title="Play"
-        onPress={() =>
-          navigation.navigate('Game', { name: 'Jane' })
-        }
-      />
-      <Text>Home Screen</Text>
-    </View>
-  );
+const Home = ({ navigation }) => {
+  return HomeScreen(navigation);
+}
+
+// Instructions Screen Component
+const Instructions = ({ navigation }) => {
+  return InstructionsScreen(navigation);
 }
 
 // Gamescreen Component
-const Gamescreen = () => {
+const Game = () => {
   return makeGrid(5);
 }
 
@@ -45,13 +41,14 @@ const Stack = createStackNavigator();
 // Exports
 /////////////////////////////////////////////////////////////////////////////////
 
-// Rendering
+// Rendering windows
 export default App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Home" component={Homescreen} />
-        <Stack.Screen name="Game" component={Gamescreen} />
+        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="Game" component={Game} />
+        <Stack.Screen name="Instructions" component={Instructions} />
       </Stack.Navigator>
     </NavigationContainer>
   )

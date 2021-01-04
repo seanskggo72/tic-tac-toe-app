@@ -37,7 +37,7 @@ const makeRow = (row, index) => {
         return (
           <View key={String(element.key)}>
             <Pressable style={styles.button} android_ripple={{ color: 'aqua' }}>
-              <ImageBackground source={require('./assets/circle.png')} style={styles.image}>
+              <ImageBackground source={require('../assets/circle.png')} style={styles.image}>
                 <Text style={styles.text}>{String(element.key)}</Text>
               </ImageBackground>
             </Pressable>
