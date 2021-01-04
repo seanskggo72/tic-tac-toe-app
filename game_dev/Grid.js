@@ -42,7 +42,7 @@ const makeRow = (row, index) => {
               </ImageBackground>
             </Pressable>
           </View>
-        )
+        );
       })}
     </View>
   )
@@ -57,7 +57,7 @@ const makeGrid = (length) => {
         return makeRow(arr, index);
       })}
     </View>
-  )
+  );
 }
 
 /////////////////////////////////////////////////////////////////////////////////
