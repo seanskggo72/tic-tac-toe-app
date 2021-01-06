@@ -25,3 +25,16 @@ UI libraries to use later:
  Additional Notes:
  
  * Use .svg files instead of .png etc (svg files do not lose resolution when resized and are smaller than png files)
+
+## SVG Integration:
+
+1. Convert .svg file into JSX ussing the following site:
+
+https://svg2jsx.com/
+
+2. Convert the JSX into react-native-svg component using the following site:
+
+https://react-svgr.com/playground/
+
+Use that component to display SVG
+
