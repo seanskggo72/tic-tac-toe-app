@@ -32,9 +32,9 @@ UI libraries to use later:
 
 https://svg2jsx.com/
 
-2. Convert the JSX into react-native-svg component using the following site:
+2. Convert the JSX into react-native-svg component using the following site (tick the react native box):
 
 https://react-svgr.com/playground/
 
-Use that component to display SVG
+3. Use that component to display SVG
 
