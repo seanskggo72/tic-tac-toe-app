@@ -21,3 +21,7 @@ UI libraries to use later:
  * Animations
  
  ```react-native-animatable```
+ 
+ Additional Notes:
+ 
+ * Use .svg files instead of .png etc (svg files do not lose resolution when resized and are smaller than png files)
