@@ -15,7 +15,7 @@ import Svg, { Defs, Image, Path, Use } from "react-native-svg"
 /////////////////////////////////////////////////////////////////////////////////
 
 // Game Background SVG
-function Background_svg(props) {
+const Background_svg = (props) => {
   return (
     <Svg
       xmlns="http://www.w3.org/2000/svg"

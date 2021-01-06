@@ -9,6 +9,7 @@
 
 import React from 'react';
 import { Text, View, StyleSheet, ImageBackground, Pressable } from 'react-native';
+import Background_svg from './Background_svg';
 
 /////////////////////////////////////////////////////////////////////////////////
 // Functions
@@ -53,6 +54,7 @@ const makeGrid = (length) => {
   let state = createGrid(length);
   return (
     <View style={styles.col_container}>
+      <Background_svg style={{position: 'absolute'}}/>
       {state.map((arr, index) => {
         return makeRow(arr, index);
       })}
@@ -67,7 +69,6 @@ const makeGrid = (length) => {
 const styles = StyleSheet.create({
   col_container: {
     flex: 1,
-    backgroundColor: '#29dfe6',
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'column',
