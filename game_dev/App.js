@@ -7,13 +7,49 @@
 // Imports
 /////////////////////////////////////////////////////////////////////////////////
 
-import makeGrid from './Grid';
+import 'react-native-gesture-handler';
+import React from 'react';
+import makeGrid from './src/Grid';
+import HomeScreen from './src/Home';
+import InstructionsScreen from './src/Instructions';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+
+/////////////////////////////////////////////////////////////////////////////////
+// Functions
+/////////////////////////////////////////////////////////////////////////////////
+
+// Homescreen Component
+const Home = ({ navigation }) => {
+  return HomeScreen(navigation);
+}
+
+// Instructions Screen Component
+const Instructions = ({ navigation }) => {
+  return InstructionsScreen(navigation);
+}
+
+// Gamescreen Component
+const Game = () => {
+  return makeGrid(5);
+}
+
+// Stack Navigator
+const Stack = createStackNavigator();
 
 /////////////////////////////////////////////////////////////////////////////////
 // Exports
 /////////////////////////////////////////////////////////////////////////////////
 
-// Rendering
-export default function App() {
-  return makeGrid(5);
+// Rendering windows
+export default App = () => {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="Game" component={Game} />
+        <Stack.Screen name="Instructions" component={Instructions} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  )
 }
