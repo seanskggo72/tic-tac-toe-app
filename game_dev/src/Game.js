@@ -1,5 +1,5 @@
 /////////////////////////////////////////////////////////////////////////////////
-// Grid.js
+// Game.js
 // Dynamcially creates 2D grid for gameplay
 /////////////////////////////////////////////////////////////////////////////////
 
@@ -9,7 +9,7 @@
 
 import React from 'react';
 import { Text, View, StyleSheet, ImageBackground, Pressable } from 'react-native';
-import Background_svg from './Svg_renderer';
+import Game_background from './Svg_renderer';
 
 /////////////////////////////////////////////////////////////////////////////////
 // Functions
@@ -50,11 +50,11 @@ const makeRow = (row, index) => {
 }
 
 // Return 2D grid of buttons
-const makeGrid = (length) => {
+const Game_screen = (length) => {
   let state = createGrid(length);
   return (
     <View style={styles.col_container}>
-      <Background_svg style={{position: 'absolute'}}/>
+      <Game_background style={{position: 'absolute'}}/>
       {state.map((arr, index) => {
         return makeRow(arr, index);
       })}
@@ -100,4 +100,4 @@ const styles = StyleSheet.create({
 /////////////////////////////////////////////////////////////////////////////////
 
 // Export grid creator function
-export default makeGrid;
+export default Game_screen;
