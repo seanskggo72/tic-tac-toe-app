@@ -11,7 +11,7 @@
 import React from 'react';
 import { Text, View, StyleSheet, ImageBackground, Pressable, Dimensions } from 'react-native';
 import Game_background from './Svg_renderer';
-import { GameEngine } from "react-native-game-engine";
+import Particle_engine from './Particles';
 
 /////////////////////////////////////////////////////////////////////////////////
 // Globals
@@ -19,7 +19,7 @@ import { GameEngine } from "react-native-game-engine";
 
 // Grid dimensions
 const grid_dimension = 5;
-// Button dimensions
+// Screen dimensions
 const button_dimension = Dimensions.get('window').width * 0.15;
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -54,8 +54,8 @@ const MakeRow = (row, index) => {
             android_ripple={{ color: 'aqua' }}
             key={String(element.key)}
           >
-            <ImageBackground 
-              source={require('../assets/circle.png')} 
+            <ImageBackground
+              source={require('../assets/circle.png')}
               style={styles.image}
             >
               <Text style={styles.text}>{String(element.key)}</Text>
@@ -75,33 +75,8 @@ const Game_screen = () => {
       <View style={styles.priority}>
         <CreateGrid />
       </View>
-      <GameEngine
-        entities={{
-          1: {
-            particles: [0, 0],
-            renderer: <Temp />
-          }
-        }}
-        style={styles.priority}
-      ></GameEngine>
+      <Particle_engine />
     </View>
-  );
-}
-
-const Temp = () => {
-  return (
-    <View
-      style={
-        {
-          borderRadius: 50,
-          left: 50,
-          top: 50,
-          width: 300,
-          height: 300,
-          backgroundColor: 'yellow'
-        }
-      }
-    />
   );
 }
 
@@ -123,7 +98,7 @@ const styles = StyleSheet.create({
   // Position child relative to its parent
   priority: {
     position: 'absolute',
-  },  
+  },
   // Styles each individual button element in grid
   button: {
     borderRadius: 8,
@@ -132,12 +107,11 @@ const styles = StyleSheet.create({
     backgroundColor: "#ffe419",
     aspectRatio: 1,
     width: button_dimension,
-    height: button_dimension,
   },
   // Image dimensions
   image: {
+    aspectRatio: 1,
     width: button_dimension,
-    height: button_dimension,
   },
   // Temporary padding for text
   text: {
