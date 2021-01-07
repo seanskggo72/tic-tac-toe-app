@@ -13,11 +13,16 @@ import { View, StyleSheet, Dimensions } from 'react-native';
 import { GameEngine } from "react-native-game-engine";
 
 /////////////////////////////////////////////////////////////////////////////////
-// Functions
+// Globals
 /////////////////////////////////////////////////////////////////////////////////
 
-const screen_width = Dimensions.get('window').width;
-const screen_height = Dimensions.get('window').height;
+// Starting x and y coordinates of screen (from top-left corner of screen)
+const start_x = -(Dimensions.get('window').height) / 2;
+const start_y = -(Dimensions.get('window').width) / 2;
+
+/////////////////////////////////////////////////////////////////////////////////
+// Functions
+/////////////////////////////////////////////////////////////////////////////////
 
 const Particle_engine = () => {
   return (
@@ -25,7 +30,7 @@ const Particle_engine = () => {
       entities={{
         1: {
           particles: [0, 0],
-          renderer: <Temp />
+          renderer: <Particle />
         }
       }}
       style={styles.priority}
@@ -33,21 +38,31 @@ const Particle_engine = () => {
   );
 }
 
-const Temp = () => {
+// Return JSX containing particle information
+const Particle = () => {
   return (
-    <View
-      style={
-        {
-          borderRadius: 50,
-          left: 0,
-          top: 0,
-          width: 25,
-          height: 25,
-          backgroundColor: '#42d7f5'
-        }
-      }
-    />
+    <View style={styles.particle_style} />
   );
+}
+
+// Given a min and max, return a random integer between the bounds
+const random_int = (min, max) => {
+  return Math.floor(Math.random() * (max - min) + min);
+}
+
+// Chooses a colour randomly from given options
+const choose_colour = () => {
+  let options = ['#143fff', '#42d7f5', '#42d7f5', 'white']
+  let num = random_int(0, 4);
+  return options[num];
+}
+
+/////////////////////////////////////////////////////////////////////////////////
+// Game Engine Properties
+/////////////////////////////////////////////////////////////////////////////////
+
+const engine = {
+  
 }
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -55,10 +70,19 @@ const Temp = () => {
 /////////////////////////////////////////////////////////////////////////////////
 
 const styles = StyleSheet.create({
+
   // Position child relative to its parent
   priority: {
     position: 'absolute',
   },
+  particle_style: {
+    borderRadius: 50,
+    left: start_y + random_int(0, -start_y * 2),
+    top: start_x + 100,
+    aspectRatio: 1,
+    width: random_int(5, 25),
+    backgroundColor: choose_colour()
+  }
 });
 
 /////////////////////////////////////////////////////////////////////////////////
