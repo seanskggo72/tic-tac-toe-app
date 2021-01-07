@@ -16,7 +16,7 @@ import Background from '../svg/Game_background'
 /////////////////////////////////////////////////////////////////////////////////
 
 // Game Background SVG
-const Background_svg = (props) => {
+const Game_background = (props) => {
   return (
     <Svg
       xmlns="http://www.w3.org/2000/svg"
@@ -44,5 +44,5 @@ const Background_svg = (props) => {
 // Exports
 /////////////////////////////////////////////////////////////////////////////////
 
-export default Background_svg;
+export default Game_background;
 

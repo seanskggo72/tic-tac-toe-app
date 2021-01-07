@@ -9,7 +9,7 @@
 
 import 'react-native-gesture-handler';
 import React from 'react';
-import makeGrid from './src/Grid';
+import Game_screen from './src/Game';
 import HomeScreen from './src/Home';
 import InstructionsScreen from './src/Instructions';
 import { NavigationContainer } from '@react-navigation/native';
@@ -31,7 +31,7 @@ const Instructions = ({ navigation }) => {
 
 // Gamescreen Component
 const Game = () => {
-  return makeGrid(5);
+  return Game_screen(5);
 }
 
 // Stack Navigator
