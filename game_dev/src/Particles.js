@@ -27,21 +27,22 @@ const start_y = -(Dimensions.get('window').width) / 2;
 const Particle_engine = () => {
   return (
     <GameEngine
-      entities={{
-        1: {
-          particles: [0, 0],
-          renderer: <Particle />
-        }
-      }}
+      entities={engine.entities}
+      systems={[move]}
       style={styles.priority}
     ></GameEngine>
   );
 }
 
 // Return JSX containing particle information
-const Particle = () => {
+const Particle = (state) => {
+  // console.log(state.position);
   return (
-    <View style={styles.particle_style} />
+    <View style={{
+      ...styles.particle_style,
+      left: state.position[0],
+      top: state.position[1],
+    }} />
   );
 }
 
@@ -58,11 +59,27 @@ const choose_colour = () => {
 }
 
 /////////////////////////////////////////////////////////////////////////////////
+// Game Engine Function
+/////////////////////////////////////////////////////////////////////////////////
+
+const move = (state, info) => {
+  if (state[1].position[1]) {
+    state[1].position[1] += 1;
+  }
+  return state;
+}
+
+/////////////////////////////////////////////////////////////////////////////////
 // Game Engine Properties
 /////////////////////////////////////////////////////////////////////////////////
 
 const engine = {
-  
+  entities: {
+    1: {
+      position: [start_y + random_int(0, -start_y * 2), start_x + 100],
+      renderer: <Particle />
+    },
+  },
 }
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -77,8 +94,6 @@ const styles = StyleSheet.create({
   },
   particle_style: {
     borderRadius: 50,
-    left: start_y + random_int(0, -start_y * 2),
-    top: start_x + 100,
     aspectRatio: 1,
     width: random_int(5, 25),
     backgroundColor: choose_colour()
