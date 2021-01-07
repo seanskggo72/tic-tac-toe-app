@@ -1,6 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////////
 // Game.js
-// Dynamcially creates 2D grid for gameplay
+// Dynamcially creates 2D grid for gameplay as well as other features such 
+// as background and animations
 /////////////////////////////////////////////////////////////////////////////////
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -13,28 +14,37 @@ import Game_background from './Svg_renderer';
 import { GameEngine } from "react-native-game-engine";
 
 /////////////////////////////////////////////////////////////////////////////////
+// Globals
+/////////////////////////////////////////////////////////////////////////////////
+
+// Grid dimensions
+const grid_dimension = 5;
+// Button dimensions
+const button_dimension = Dimensions.get('window').width * 0.15;
+
+/////////////////////////////////////////////////////////////////////////////////
 // Functions
 /////////////////////////////////////////////////////////////////////////////////
 
-// Create 2D Object with specified length
-const createGrid = (length) => {
+// Create 2D Object with grid_dimension global
+const CreateGrid = () => {
   let state = [], counter = 0;
-  for (let i = 0; i < length; i++) {
+  for (let i = 0; i < grid_dimension; i++) {
     let temp = [];
-    for (let j = 0; j < length; j++) {
+    for (let j = 0; j < grid_dimension; j++) {
       temp.push({ key: counter, state: 0 });
       counter++;
     }
     state.push(temp);
   }
   return state.map((arr, index) => {
-    return makeRow(arr, index);
+    return MakeRow(arr, index);
   });
 }
 
 // Helper function for createGrid -> given a row array, return
 // the buttons for that row in JSX
-const makeRow = (row, index) => {
+const MakeRow = (row, index) => {
   return (
     <View style={styles.row_render} key={index}>
       {row.map(element => {
@@ -44,7 +54,10 @@ const makeRow = (row, index) => {
             android_ripple={{ color: 'aqua' }}
             key={String(element.key)}
           >
-            <ImageBackground source={require('../assets/circle.png')} style={styles.image}>
+            <ImageBackground 
+              source={require('../assets/circle.png')} 
+              style={styles.image}
+            >
               <Text style={styles.text}>{String(element.key)}</Text>
             </ImageBackground>
           </Pressable>
@@ -58,9 +71,9 @@ const makeRow = (row, index) => {
 const Game_screen = () => {
   return (
     <View style={styles.main_container}>
-      <Game_background style={{ position: 'relative' }} />
-      <View style={{ position: 'absolute' }}>
-        {createGrid(5)}
+      <Game_background />
+      <View style={styles.priority}>
+        <CreateGrid />
       </View>
       <GameEngine
         entities={{
@@ -69,7 +82,7 @@ const Game_screen = () => {
             renderer: <Temp />
           }
         }}
-        style={{ position: 'absolute' }}
+        style={styles.priority}
       ></GameEngine>
     </View>
   );
@@ -96,8 +109,6 @@ const Temp = () => {
 // Style
 /////////////////////////////////////////////////////////////////////////////////
 
-const button_dimension = Dimensions.get('window').width * 0.15;
-
 const styles = StyleSheet.create({
   // Aligns children in the centre
   main_container: {
@@ -109,6 +120,10 @@ const styles = StyleSheet.create({
   row_render: {
     flexDirection: 'row',
   },
+  // Position child relative to its parent
+  priority: {
+    position: 'absolute',
+  },  
   // Styles each individual button element in grid
   button: {
     borderRadius: 8,
