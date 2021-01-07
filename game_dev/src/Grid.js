@@ -9,7 +9,7 @@
 
 import React from 'react';
 import { Text, View, StyleSheet, ImageBackground, Pressable } from 'react-native';
-import Background_svg from './Background_svg';
+import Background_svg from './Svg_renderer';
 
 /////////////////////////////////////////////////////////////////////////////////
 // Functions
