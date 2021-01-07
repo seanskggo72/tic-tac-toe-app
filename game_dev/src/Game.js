@@ -10,6 +10,7 @@
 import React from 'react';
 import { Text, View, StyleSheet, ImageBackground, Pressable } from 'react-native';
 import Game_background from './Svg_renderer';
+import { GameEngine } from "react-native-game-engine";
 
 /////////////////////////////////////////////////////////////////////////////////
 // Functions
@@ -26,10 +27,12 @@ const createGrid = (length) => {
     }
     state.push(temp);
   }
-  return state;
+  return state.map((arr, index) => {
+    return makeRow(arr, index);
+  });
 }
 
-// Helper function for makeGrid -> given a row array, return
+// Helper function for createGrid -> given a row array, return
 // the buttons for that row in JSX
 const makeRow = (row, index) => {
   return (
@@ -54,11 +57,37 @@ const Game_screen = (length) => {
   let state = createGrid(length);
   return (
     <View style={styles.col_container}>
-      <Game_background style={{position: 'absolute'}}/>
-      {state.map((arr, index) => {
-        return makeRow(arr, index);
-      })}
-    </View>
+      <Game_background style={{ position: 'relative' }} />
+      <GameEngine
+        entities={{
+          1: {
+            particles: [40, 40],
+            renderer: <Temp />
+          }
+        }}
+        style={{ position: 'absolute' }}
+      ></GameEngine>
+      <View style={{ position: 'absolute' }}>
+        {createGrid(5)}
+      </View>
+    </View >
+  );
+}
+
+const Temp = () => {
+  return (
+    <View
+      style={
+        {
+          borderRadius: 50,
+          left: 50,
+          top: 50,
+          width: 300,
+          height: 300,
+          backgroundColor: 'yellow'
+        }
+      }
+    />
   );
 }
 
@@ -92,7 +121,7 @@ const styles = StyleSheet.create({
   text: {
     padding: 15,
     textAlign: 'center',
-  }
+  },
 });
 
 /////////////////////////////////////////////////////////////////////////////////
