@@ -23,6 +23,8 @@ const start_y = -(Dimensions.get('window').width) / 2;
 const num_particles = 5;
 // Determines the spawn rate of particles (between 0 and 1)
 const spawn_rate = 0.05;
+// Height of screen
+const screen_height = Dimensions.get('window').height;
 
 /////////////////////////////////////////////////////////////////////////////////
 // Functions
@@ -55,14 +57,15 @@ const choose_colour = () => {
 /////////////////////////////////////////////////////////////////////////////////
 
 const Spawn_particles = (state) => {
-  let rate = Math.random();
+  let rate = Math.random(), size = random_int(5, 20);
   if (rate > spawn_rate) return state;
   if (state[1].particles.length >= num_particles) return state;
   state[1].particles.push({
     position: [start_y + random_int(0, -start_y * 2), start_x],
-    width: random_int(5, 25),
+    width: size,
     backgroundColor: choose_colour(),
-    lifespan: 150,
+    lifespan: screen_height/4,
+    time: 1
   })
   return state;
 }
@@ -70,8 +73,11 @@ const Spawn_particles = (state) => {
 // Function for updating position per time frame
 const Update_particles = (state) => {
   for (let index in state[1].particles) {
-    state[1].particles[index].position[1] += 5;
+    let time = state[1].particles[index].time/20;
+    let mass = state[1].particles[index].width/5;
+    state[1].particles[index].position[1] += mass * time;
     state[1].particles[index].lifespan--;
+    state[1].particles[index].time++;
     if (state[1].particles[index].lifespan < 0) {
       state[1].particles.splice(index, 1);
     }
@@ -93,6 +99,7 @@ const Particle = (state) => {
       left: state.position[0],
       top: state.position[1],
       lifespan: state.lifespan,
+      time: state.time
     }} />
   );
 }
@@ -108,6 +115,7 @@ const Render_particles = (state) => {
             width={ent.width}
             backgroundColor={ent.backgroundColor}
             lifespan={ent.lifespan}
+            time={ent.time}
             key={index}
           />
         )
