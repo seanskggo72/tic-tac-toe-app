@@ -19,30 +19,29 @@ import { GameEngine } from "react-native-game-engine";
 // Starting x and y coordinates of screen (from top-left corner of screen)
 const start_x = -(Dimensions.get('window').height) / 2;
 const start_y = -(Dimensions.get('window').width) / 2;
+// Number of maximum particles to display on screen per time frame
+const num_particles = 5;
+// List containing particle information at a certain time frame
+var particles = [];
 
 /////////////////////////////////////////////////////////////////////////////////
 // Functions
 /////////////////////////////////////////////////////////////////////////////////
 
 const Particle_engine = () => {
+  particles = [];
+  Generate_particles();
   return (
     <GameEngine
-      entities={engine.entities}
-      systems={[move]}
-      style={styles.priority}
+      entities={{
+        1: {
+          particles_list: particles,
+          renderer: Render_particles,
+        }
+      }}
+      systems={[Movevement]}
+      style={styles.priority} // check if this is necessary
     ></GameEngine>
-  );
-}
-
-// Return JSX containing particle information
-const Particle = (state) => {
-  // console.log(state.position);
-  return (
-    <View style={{
-      ...styles.particle_style,
-      left: state.position[0],
-      top: state.position[1],
-    }} />
   );
 }
 
@@ -62,41 +61,84 @@ const choose_colour = () => {
 // Game Engine Function
 /////////////////////////////////////////////////////////////////////////////////
 
-const move = (state, info) => {
-  if (state[1].position[1]) {
-    state[1].position[1] += 1;
-  }
+// Function for updating position per time frame
+const Movevement = (state) => {
+  particles.map(ent => {
+    return ent.position[1] += 5;
+  })
   return state;
+}
+
+// Checks each particle for its lifespan and filters and replaces with
+// new particles accordingly
+const particle_remove = () => {
+
 }
 
 /////////////////////////////////////////////////////////////////////////////////
 // Game Engine Properties
 /////////////////////////////////////////////////////////////////////////////////
 
-const engine = {
-  entities: {
-    1: {
-      position: [start_y + random_int(0, -start_y * 2), start_x + 100],
-      renderer: <Particle />
-    },
-  },
+// Return JSX containing a single particle information
+const Particle = (state) => {
+  return (
+    <View style={{
+      ...styles.particle_style,
+      width: state.width,
+      backgroundColor: state.backgroundColor,
+      left: state.position[0],
+      top: state.position[1],
+      lifespan: state.lifespan,
+    }} />
+  );
+}
+
+// Create initial particle entities
+const Generate_particles = () => {
+  for (let i = 0; i < num_particles; i++) {
+    particles.push({
+      position: [start_y + random_int(0, -start_y * 2), start_x],
+      width: random_int(5, 25),
+      backgroundColor: choose_colour(),
+      lifespan: 100,
+    })
+  }
+}
+
+// Render particles from particles list
+const Render_particles = () => {
+  return (
+    <View>
+      {particles.map((ent, index) => {
+        return (
+          <Particle
+            position={ent.position}
+            width={ent.width}
+            backgroundColor={ent.backgroundColor}
+            lifespan={ent.lifespan}
+            key={index}
+          />
+        )
+      })}
+    </View>
+  )
 }
 
 /////////////////////////////////////////////////////////////////////////////////
 // Style
 /////////////////////////////////////////////////////////////////////////////////
 
+// Style Sheet
 const styles = StyleSheet.create({
-
   // Position child relative to its parent
   priority: {
     position: 'absolute',
   },
+  // Universal particle style
   particle_style: {
+    position: 'absolute',
     borderRadius: 50,
     aspectRatio: 1,
-    width: random_int(5, 25),
-    backgroundColor: choose_colour()
   }
 });
 
