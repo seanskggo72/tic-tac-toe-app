@@ -21,25 +21,18 @@ const start_x = -(Dimensions.get('window').height) / 2;
 const start_y = -(Dimensions.get('window').width) / 2;
 // Number of maximum particles to display on screen per time frame
 const num_particles = 5;
-// List containing particle information at a certain time frame
-var particles = [];
+// Determines the spawn rate of particles (between 0 and 1)
+const spawn_rate = 0.05;
 
 /////////////////////////////////////////////////////////////////////////////////
 // Functions
 /////////////////////////////////////////////////////////////////////////////////
 
 const Particle_engine = () => {
-  particles = [];
-  Generate_particles();
   return (
     <GameEngine
-      entities={{
-        1: {
-          particles_list: particles,
-          renderer: Render_particles,
-        }
-      }}
-      systems={[Movevement]}
+      entities={{ 1: { particles: [], renderer: Render_particles } }}
+      systems={[Update_particles, Spawn_particles]}
       style={styles.priority} // check if this is necessary
     ></GameEngine>
   );
@@ -61,18 +54,29 @@ const choose_colour = () => {
 // Game Engine Function
 /////////////////////////////////////////////////////////////////////////////////
 
-// Function for updating position per time frame
-const Movevement = (state) => {
-  particles.map(ent => {
-    return ent.position[1] += 5;
+const Spawn_particles = (state) => {
+  let rate = Math.random();
+  if (rate > spawn_rate) return state;
+  if (state[1].particles.length >= num_particles) return state;
+  state[1].particles.push({
+    position: [start_y + random_int(0, -start_y * 2), start_x],
+    width: random_int(5, 25),
+    backgroundColor: choose_colour(),
+    lifespan: 150,
   })
   return state;
 }
 
-// Checks each particle for its lifespan and filters and replaces with
-// new particles accordingly
-const particle_remove = () => {
-
+// Function for updating position per time frame
+const Update_particles = (state) => {
+  for (let index in state[1].particles) {
+    state[1].particles[index].position[1] += 5;
+    state[1].particles[index].lifespan--;
+    if (state[1].particles[index].lifespan < 0) {
+      state[1].particles.splice(index, 1);
+    }
+  }
+  return state;
 }
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -93,23 +97,11 @@ const Particle = (state) => {
   );
 }
 
-// Create initial particle entities
-const Generate_particles = () => {
-  for (let i = 0; i < num_particles; i++) {
-    particles.push({
-      position: [start_y + random_int(0, -start_y * 2), start_x],
-      width: random_int(5, 25),
-      backgroundColor: choose_colour(),
-      lifespan: 100,
-    })
-  }
-}
-
 // Render particles from particles list
-const Render_particles = () => {
+const Render_particles = (state) => {
   return (
     <View>
-      {particles.map((ent, index) => {
+      {state.particles.map((ent, index) => {
         return (
           <Particle
             position={ent.position}
