@@ -8,8 +8,8 @@
 // Imports
 /////////////////////////////////////////////////////////////////////////////////
 
-import React from 'react';
-import { Text, View, StyleSheet, ImageBackground, Pressable, Dimensions } from 'react-native';
+import React, { useState } from 'react';
+import { Text, View, StyleSheet, Image, Pressable, Dimensions } from 'react-native';
 import Game_background from './Svg_renderer';
 import Particle_engine from './Particles';
 
@@ -17,54 +17,60 @@ import Particle_engine from './Particles';
 // Globals
 /////////////////////////////////////////////////////////////////////////////////
 
-// Grid dimensions
-const grid_dimension = 5;
+// Grid dimensions - constant to reduce render time compared to for loop
+const grid = [
+  [[0, true], [1, true], [2, true], [3, true], [4, true]],
+  [[5, true], [6, true], [7, true], [8, true], [9, true]],
+  [[10, true], [11, true], [12, true], [13, true], [14, true]],
+  [[15, true], [16, true], [17, true], [18, true], [19, true]],
+  [[20, true], [21, true], [22, true], [23, true], [24, true]]
+];
 // Screen dimensions
 const button_dimension = Dimensions.get('window').width * 0.15;
+// Load PNG files 
+const circle = require('../assets/circle.png');
+const cross = require('../assets/cross.png');
 
 /////////////////////////////////////////////////////////////////////////////////
 // Functions
 /////////////////////////////////////////////////////////////////////////////////
 
-// Create 2D Object with grid_dimension global
+// Create 2D grid
 const CreateGrid = () => {
-  let state = [], counter = 0;
-  for (let i = 0; i < grid_dimension; i++) {
-    let temp = [];
-    for (let j = 0; j < grid_dimension; j++) {
-      temp.push({ key: counter, state: 0 });
-      counter++;
-    }
-    state.push(temp);
+  const [grid_state, set_grid_image] = useState(grid);
+  const change_grid = (index) => {
+    let temp = [...grid_state], arr_index = Math.floor(index / 5);
+    let row_index = index - (5 * arr_index);
+    temp[arr_index][row_index][1] = !temp[arr_index][row_index][1];
+    set_grid_image(temp);
   }
-  return state.map((arr, index) => {
-    return MakeRow(arr, index);
-  });
+  return (
+    grid_state.map((row, index) => {
+      return (
+        <View style={styles.row_render} key={`row${index}`}>
+          {row.map(ele => { return node(ele[0], ele[1], change_grid) })}
+        </View>
+      )
+    })
+  );
 }
 
-// Helper function for createGrid -> given a row array, return
-// the buttons for that row in JSX
-const MakeRow = (row, index) => {
+// Helper for CreateGrid function: returns JSX for each grid cell
+const node = (index, bool, change_grid) => {
+  let img = bool ? circle : cross;
   return (
-    <View style={styles.row_render} key={index}>
-      {row.map(element => {
-        return (
-          <Pressable
-            style={styles.button}
-            android_ripple={{ color: 'aqua' }}
-            key={String(element.key)}
-          >
-            <ImageBackground
-              source={require('../assets/circle.png')}
-              style={styles.image}
-            >
-              <Text style={styles.text}>{String(element.key)}</Text>
-            </ImageBackground>
-          </Pressable>
-        );
-      })}
-    </View>
-  )
+    <Pressable
+      style={styles.button}
+      onPress={change_grid.bind(this, index)}
+      key={String(index)}
+    >
+      <Image
+        source={img}
+        style={styles.image}
+        resizeMethod={'resize'} // android
+      />
+    </Pressable>
+  );
 }
 
 // Return 2D grid of buttons
@@ -110,13 +116,8 @@ const styles = StyleSheet.create({
   },
   // Image dimensions
   image: {
-    aspectRatio: 1,
-    width: button_dimension,
-  },
-  // Temporary padding for text
-  text: {
-    padding: 18,
-    textAlign: 'center',
+    flex: 1,
+    resizeMode: 'contain',
   },
 });
 
