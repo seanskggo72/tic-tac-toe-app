@@ -9,7 +9,8 @@
 /////////////////////////////////////////////////////////////////////////////////
 
 import React, { useState } from 'react';
-import { Text, View, StyleSheet, Image, Pressable, Dimensions } from 'react-native';
+import { View, StyleSheet, Image, Pressable, Dimensions } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 import Game_background from './Svg_renderer';
 import Particle_engine from './Particles';
 
@@ -19,11 +20,11 @@ import Particle_engine from './Particles';
 
 // Grid dimensions - constant to reduce render time compared to for loop
 const grid = [
-  [[0, true], [1, true], [2, true], [3, true], [4, true]],
-  [[5, true], [6, true], [7, true], [8, true], [9, true]],
-  [[10, true], [11, true], [12, true], [13, true], [14, true]],
-  [[15, true], [16, true], [17, true], [18, true], [19, true]],
-  [[20, true], [21, true], [22, true], [23, true], [24, true]]
+  [[0, null], [1, null], [2, null], [3, null], [4, null]],
+  [[5, null], [6, null], [7, null], [8, null], [9, null]],
+  [[10, null], [11, null], [12, null], [13, null], [14, null]],
+  [[15, null], [16, null], [17, null], [18, null], [19, null]],
+  [[20, null], [21, null], [22, null], [23, null], [24, null]]
 ];
 // Screen dimensions
 const button_dimension = Dimensions.get('window').width * 0.15;
@@ -41,7 +42,9 @@ const CreateGrid = () => {
   const change_grid = (index) => {
     let temp = [...grid_state], arr_index = Math.floor(index / 5);
     let row_index = index - (5 * arr_index);
-    temp[arr_index][row_index][1] = !temp[arr_index][row_index][1];
+    if (temp[arr_index][row_index][1] === null) {
+      temp[arr_index][row_index][1] = true;
+    } else temp[arr_index][row_index][1] = !temp[arr_index][row_index][1];
     set_grid_image(temp);
   }
   return (
@@ -57,19 +60,28 @@ const CreateGrid = () => {
 
 // Helper for CreateGrid function: returns JSX for each grid cell
 const node = (index, bool, change_grid) => {
-  let img = bool ? circle : cross;
+  let img;
+  if (bool === null) img = null;
+  else img = bool ? circle : cross;
   return (
-    <Pressable
-      style={styles.button}
-      onPress={change_grid.bind(this, index)}
+    <LinearGradient
+      colors={['#f692f7', '#b25fed', '#6ecfff']}
+      style={styles.gradient}
+      start={{ x: 0.0, y: 0.25 }}
+      end={{ x: 0.5, y: 1.0 }}
       key={String(index)}
     >
-      <Image
-        source={img}
-        style={styles.image}
-        resizeMethod={'resize'} // android
-      />
-    </Pressable>
+      <Pressable
+        style={styles.button}
+        onPress={change_grid.bind(this, index)}
+      >
+        <Image
+          source={img}
+          style={styles.image}
+          resizeMethod={'resize'} // android
+        />
+      </Pressable>
+    </LinearGradient>
   );
 }
 
@@ -110,9 +122,11 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     alignItems: "center",
     justifyContent: 'center',
-    backgroundColor: "#ffe419",
     aspectRatio: 1,
     width: button_dimension,
+  },
+  gradient: {
+    borderRadius: 8,
   },
   // Image dimensions
   image: {
