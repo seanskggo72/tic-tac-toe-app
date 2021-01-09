@@ -64,13 +64,13 @@ const Spawn_particles = (state) => {
     position: [start_y + random_int(0, -start_y * 2), start_x],
     width: size,
     backgroundColor: choose_colour(),
-    lifespan: screen_height/4,
+    lifespan: screen_height/4.5,
     time: 1
   })
   return state;
 }
 
-// Function for updating position per time frame
+// Function for updating position and particle stats per time frame
 const Update_particles = (state) => {
   for (let index in state[1].particles) {
     let time = state[1].particles[index].time/20;
