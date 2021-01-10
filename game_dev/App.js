@@ -31,7 +31,7 @@ const Instructions = ({ navigation }) => {
 
 // Gamescreen Component
 const Game = () => {
-  return Game_screen(5);
+  return Game_screen();
 }
 
 // Stack Navigator

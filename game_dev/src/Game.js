@@ -65,7 +65,7 @@ const node = (index, bool, change_grid) => {
   else img = bool ? circle : cross;
   return (
     <LinearGradient
-      colors={['#f692f7', '#b25fed', '#6ecfff']}
+      colors={['#00d5ff', '#11adab', '#1ffffb']}
       style={styles.gradient}
       start={{ x: 0.0, y: 0.25 }}
       end={{ x: 0.5, y: 1.0 }}
