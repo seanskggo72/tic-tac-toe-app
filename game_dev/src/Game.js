@@ -29,8 +29,9 @@ const grid = [
 // Screen dimensions
 const button_dimension = Dimensions.get('window').width * 0.15;
 // Load PNG files 
-const circle = require('../assets/circle.png');
-const cross = require('../assets/cross.png');
+const balloon = require('../assets/balloon.png');
+const satellite = require('../assets/satellite.png');
+const rocket = require('../assets/rocket.png');
 
 /////////////////////////////////////////////////////////////////////////////////
 // Functions
@@ -43,8 +44,8 @@ const CreateGrid = () => {
     let temp = [...grid_state], arr_index = Math.floor(index / 5);
     let row_index = index - (5 * arr_index);
     if (temp[arr_index][row_index][1] === null) {
-      temp[arr_index][row_index][1] = true;
-    } else temp[arr_index][row_index][1] = !temp[arr_index][row_index][1];
+      temp[arr_index][row_index][1] = 1;
+    } else temp[arr_index][row_index][1] += 1;
     set_grid_image(temp);
   }
   return (
@@ -62,10 +63,11 @@ const CreateGrid = () => {
 const node = (index, bool, change_grid) => {
   let img;
   if (bool === null) img = null;
-  else img = bool ? circle : cross;
+  else if (bool === 1) img = balloon;
+  else img = (bool === 2) ? rocket : satellite;
   return (
     <LinearGradient
-      colors={['#00d5ff', '#11adab', '#1ffffb']}
+      colors={['#4a4a4a', '#004887', '#000000']}
       style={styles.gradient}
       start={{ x: 0.0, y: 0.25 }}
       end={{ x: 0.5, y: 1.0 }}
