@@ -9,6 +9,7 @@
 
 import React from 'react';
 import { Text, View, Button } from 'react-native';
+import Particle_engine from './Particles';
 
 /////////////////////////////////////////////////////////////////////////////////
 // Functions
@@ -17,6 +18,7 @@ import { Text, View, Button } from 'react-native';
 const HomeScreen = (navigation) => {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Particle_engine />
       <Text>Welcome to Home Screen</Text>
       <Button title="Play" onPress={() => navigation.navigate('Game')} />
       <Button title="Instructions" onPress={() => navigation.navigate('Instructions')} />
