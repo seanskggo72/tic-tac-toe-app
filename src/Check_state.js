@@ -8,9 +8,13 @@
 /////////////////////////////////////////////////////////////////////////////////
 
 // Given a game state, checks whether the game is won, drawn or lost
-const Check_state = (grid_state) => {
-    
-    return true;
+const Check_state = (gd) => {
+  // Check rows
+  for (let i = 0; i < 3; i++) {
+    if (gd[i][0][1] === true && gd[i][1][1] === true && gd[i][2][1] === true) return true;
+    if (gd[i][0][1] === false && gd[i][1][1] === false && gd[i][2][1] === false) return true;
+  }
+  return false;
 }
 
 /////////////////////////////////////////////////////////////////////////////////
