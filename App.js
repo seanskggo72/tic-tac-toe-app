@@ -45,11 +45,11 @@ const Stack = createStackNavigator();
 export default App = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="Game" component={Game} />
-        <Stack.Screen name="Instructions" component={Instructions} />
+      <Stack.Navigator screenOptions={{ headerTransparent: true, headerTintColor: 'blue' }}>
+        <Stack.Screen name="Home" component={Home} options={{ title: '' }} />
+        <Stack.Screen name="Game" component={Game} options={{ title: '' }} />
+        <Stack.Screen name="Instructions" component={Instructions} options={{ title: '' }} />
       </Stack.Navigator>
-    </NavigationContainer>
+    </NavigationContainer >
   )
 }
