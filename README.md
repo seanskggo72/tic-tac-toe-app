@@ -7,8 +7,6 @@ Sean 2021
 
 Notes:
 
-* syntax for game proposal files are horrible: don't replicate!
-
 * will change readme content before going public :D
 
 This repo contains all the actual app development files and dependencies.
