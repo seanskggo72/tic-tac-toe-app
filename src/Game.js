@@ -32,6 +32,7 @@ const circle = require('../assets/circle.png');
 const cross = require('../assets/cross.png');
 // Keep track of turn
 var turn = true;
+var game_over = false;
 
 /////////////////////////////////////////////////////////////////////////////////
 // Functions
@@ -44,7 +45,18 @@ const CreateGrid = () => {
   // Toggle modal visibility
   const set_modal = (mode) => {
     set_modal_on(mode);
+  } 
+  // Reset grid
+  const reset_grid = () => {
+    for (let i = 0; i < 3; i++) {
+      for (let j = 0; j < 3; j++) {
+        grid_state[i][j][1] = null; 
+        grid_state[i][j][2] = false; 
+      }
+    }
+    set_grid_image(grid_state);
   }
+  // Change a child of the grid to be rendered
   const change_grid = (index) => {
     // Calculate position on grid given index
     let temp = [...grid_state]
@@ -59,11 +71,15 @@ const CreateGrid = () => {
     }
     set_grid_image(temp);
   }
+  // Check if game ended
+  let answer, game_over = true;
+  if (game_over) answer = Show_modal(modal_on, set_modal, reset_grid);
+  game_over = false;
   return (
     grid_state.map((row, index) => {
       return (
         <View style={styles.row_render} key={`row${index}`}>
-          {Show_modal(modal_on, set_modal)}
+          {answer}
           {row.map(ele => { return node(ele[0], ele[1], change_grid) })}
         </View>
       )

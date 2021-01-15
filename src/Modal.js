@@ -21,7 +21,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 /////////////////////////////////////////////////////////////////////////////////
 
 // Function that determines whether to show the modal or not
-const Show_modal = (show, set_modal) => {
+const Show_modal = (show, set_modal, reset_grid) => {
   if (show) {
     return (
       <Modal
@@ -35,8 +35,20 @@ const Show_modal = (show, set_modal) => {
               colors={['#00d5ff', '#11adab', '#1ffffb']} style={styles.gradient}
               start={{ x: 0.0, y: 0.25 }} end={{ x: 0.5, y: 1.0 }}
             >
-              <Pressable style={styles.button} onPress={() => set_modal(false)}>
-                <Text>Press me</Text>
+              <Pressable style={styles.button} onPress={() => set_modal(false)}
+                android_ripple={{ color: 'pink' }}
+              >
+                <Text>OK</Text>
+              </Pressable>
+            </LinearGradient>
+            <LinearGradient
+              colors={['#00d5ff', '#11adab', '#1ffffb']} style={styles.gradient}
+              start={{ x: 0.0, y: 0.25 }} end={{ x: 0.5, y: 1.0 }}
+            >
+              <Pressable style={styles.button} onPress={() => {reset_grid(); set_modal(false)}}
+                android_ripple={{ color: 'pink' }}
+              >
+                <Text>Reset</Text>
               </Pressable>
             </LinearGradient>
           </View>
