@@ -1,4 +1,5 @@
-# mobile-app-project
+# tic-tac-toe-app
+
 
 Development Repo for mobile game dev project 
 
