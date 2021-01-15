@@ -12,26 +12,25 @@ import React, { useState } from 'react';
 import { View, StyleSheet, Image, Pressable, Dimensions } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import Game_background from './Svg_renderer';
-import Particle_engine from './Particles';
 
 /////////////////////////////////////////////////////////////////////////////////
 // Globals
 /////////////////////////////////////////////////////////////////////////////////
 
 // Grid dimensions - constant to reduce render time compared to for loop
+// Each cell is in the form [index, image, pressed]
 const grid = [
-  [[0, null], [1, null], [2, null], [3, null], [4, null]],
-  [[5, null], [6, null], [7, null], [8, null], [9, null]],
-  [[10, null], [11, null], [12, null], [13, null], [14, null]],
-  [[15, null], [16, null], [17, null], [18, null], [19, null]],
-  [[20, null], [21, null], [22, null], [23, null], [24, null]]
+  [[0, null, false], [1, null, false], [2, null, false]],
+  [[3, null, false], [4, null, false], [5, null, false]],
+  [[6, null, false], [7, null, false], [8, null, false]],
 ];
 // Screen dimensions
-const button_dimension = Dimensions.get('window').width * 0.15;
+const button_dimension = Dimensions.get('window').width * 0.23;
 // Load PNG files 
-const balloon = require('../assets/balloon.png');
-const satellite = require('../assets/satellite.png');
-const rocket = require('../assets/rocket.png');
+const circle = require('../assets/circle.png');
+const cross = require('../assets/cross.png');
+// Keep track of turn
+var turn = true;
 
 /////////////////////////////////////////////////////////////////////////////////
 // Functions
@@ -41,11 +40,17 @@ const rocket = require('../assets/rocket.png');
 const CreateGrid = () => {
   const [grid_state, set_grid_image] = useState(grid);
   const change_grid = (index) => {
-    let temp = [...grid_state], arr_index = Math.floor(index / 5);
-    let row_index = index - (5 * arr_index);
-    if (temp[arr_index][row_index][1] === null) {
-      temp[arr_index][row_index][1] = 1;
-    } else temp[arr_index][row_index][1] += 1;
+    // Calculate position on grid given index
+    let temp = [...grid_state]
+    let col = Math.floor(index / 3),  row = index - (3 * col);
+    // If the button was already pressed, return immediately
+    if (temp[col][row][2]) return; 
+    // Else toggle turn and set the symbol for that index only
+    else {
+      temp[col][row][1] = turn;
+      temp[col][row][2] = true;
+      turn = !turn;
+    }
     set_grid_image(temp);
   }
   return (
@@ -59,29 +64,23 @@ const CreateGrid = () => {
   );
 }
 
+// Given a boolean value (+ null) return corresponding image
+const choose_image = (image) => {
+  if (image === null) return null;
+  else return image ? circle : cross;
+}
+
 // Helper for CreateGrid function: returns JSX for each grid cell
-const node = (index, bool, change_grid) => {
-  let img;
-  if (bool === null) img = null;
-  else if (bool === 1) img = balloon;
-  else img = (bool === 2) ? rocket : satellite;
+const node = (index, image, change_grid) => {
+  let img = choose_image(image);
   return (
     <LinearGradient
-      colors={['#4a4a4a', '#004887', '#000000']}
-      style={styles.gradient}
-      start={{ x: 0.0, y: 0.25 }}
-      end={{ x: 0.5, y: 1.0 }}
+      colors={['#00d5ff', '#11adab', '#1ffffb']} style={styles.gradient}
+      start={{ x: 0.0, y: 0.25 }} end={{ x: 0.5, y: 1.0 }}
       key={String(index)}
     >
-      <Pressable
-        style={styles.button}
-        onPress={change_grid.bind(this, index)}
-      >
-        <Image
-          source={img}
-          style={styles.image}
-          resizeMethod={'resize'} // android
-        />
+      <Pressable style={styles.button} onPress={change_grid.bind(this, index)}>
+        <Image source={img} style={styles.image} resizeMethod={'resize'} />
       </Pressable>
     </LinearGradient>
   );
@@ -95,7 +94,6 @@ const Game_screen = () => {
       <View style={styles.priority}>
         <CreateGrid />
       </View>
-      <Particle_engine />
     </View>
   );
 }
