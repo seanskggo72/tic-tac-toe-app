@@ -8,7 +8,7 @@
 // Imports
 /////////////////////////////////////////////////////////////////////////////////
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, Image, Pressable, Dimensions, Modal, Text } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import Game_background from './Svg_renderer';
@@ -40,23 +40,24 @@ var game_over = false;
 /////////////////////////////////////////////////////////////////////////////////
 
 // Create 2D grid
-const CreateGrid = () => {
+const CreateGrid = (navigation) => {
   const [grid_state, set_grid_image] = useState(grid);
   const [modal_on, set_modal_on] = useState(true);
   // Toggle modal visibility
   const set_modal = (mode) => {
     set_modal_on(mode);
-  } 
+  }
   // Reset grid
   const reset_grid = () => {
     for (let i = 0; i < 3; i++) {
       for (let j = 0; j < 3; j++) {
-        grid_state[i][j][1] = null; 
-        grid_state[i][j][2] = false; 
+        grid_state[i][j][1] = null;
+        grid_state[i][j][2] = false;
       }
     }
     set_grid_image(grid_state);
     game_over = false;
+    turn = true;
   }
   // Change a child of the grid to be rendered
   const change_grid = (index) => {
@@ -74,10 +75,13 @@ const CreateGrid = () => {
     set_grid_image(temp);
     set_modal(true);
   }
+  useEffect(() => {
+    if (!turn) change_grid(4);
+  }, [grid_state])
   // Check if game ended
   let answer, game_over = Check_state(grid_state);
   if (game_over) {
-    answer = Show_modal(modal_on, set_modal, reset_grid)
+    answer = Show_modal(modal_on, set_modal, reset_grid, navigation)
   }
   return (
     grid_state.map((row, index) => {
@@ -114,12 +118,12 @@ const node = (index, image, change_grid) => {
 }
 
 // Return 2D grid of buttons
-const Game_screen = () => {
+const Game_screen = (navigation, route) => {
   return (
     <View style={styles.main_container}>
       <Game_background />
       <View style={styles.priority}>
-        <CreateGrid />
+        <CreateGrid navigation={{ navigation }} />
       </View>
     </View>
   );

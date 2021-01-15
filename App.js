@@ -30,8 +30,8 @@ const Instructions = ({ navigation }) => {
 }
 
 // Gamescreen Component
-const Game = () => {
-  return Game_screen();
+const Game = ({ navigation, route }) => {
+  return Game_screen(navigation, route);
 }
 
 // Stack Navigator

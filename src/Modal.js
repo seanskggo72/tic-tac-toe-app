@@ -16,12 +16,12 @@ import { LinearGradient } from 'expo-linear-gradient';
 /////////////////////////////////////////////////////////////////////////////////
 
 // Function that determines whether to show the modal or not
-const Show_modal = (show, set_modal, reset_grid) => {
+const Show_modal = (show, set_modal, reset_grid, { navigation }) => {
   if (show) {
     return (
       <Modal
         animationType="fade" transparent={true} visible={true}
-        onRequestClose={() => { console.log('closed') }}
+        onRequestClose={() => set_modal(false)}
       >
         <View style={styles.main_container}>
           <View style={styles.child_container}>
@@ -30,7 +30,11 @@ const Show_modal = (show, set_modal, reset_grid) => {
               colors={['#00d5ff', '#11adab', '#1ffffb']} style={styles.gradient}
               start={{ x: 0.0, y: 0.25 }} end={{ x: 0.5, y: 1.0 }}
             >
-              <Pressable style={styles.button} onPress={() => set_modal(false)}
+              <Pressable style={styles.button} onPress={() => {
+                reset_grid(); 
+                set_modal(false);
+                navigation.navigation.navigate('Home')
+              }}
                 android_ripple={{ color: 'pink' }}
               >
                 <Text>OK</Text>
@@ -40,7 +44,7 @@ const Show_modal = (show, set_modal, reset_grid) => {
               colors={['#00d5ff', '#11adab', '#1ffffb']} style={styles.gradient}
               start={{ x: 0.0, y: 0.25 }} end={{ x: 0.5, y: 1.0 }}
             >
-              <Pressable style={styles.button} onPress={() => {reset_grid(); set_modal(false)}}
+              <Pressable style={styles.button} onPress={() => { reset_grid(); set_modal(false) }}
                 android_ripple={{ color: 'pink' }}
               >
                 <Text>Reset</Text>
