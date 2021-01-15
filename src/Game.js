@@ -14,6 +14,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import Game_background from './Svg_renderer';
 import Show_modal from './Modal';
 import Check_state from './Check_state';
+import Minimax from './Minimax';
 
 /////////////////////////////////////////////////////////////////////////////////
 // Globals
@@ -40,7 +41,7 @@ var game_over = false;
 /////////////////////////////////////////////////////////////////////////////////
 
 // Create 2D grid
-const CreateGrid = (navigation) => {
+const CreateGrid = ({ navigation }) => {
   const [grid_state, set_grid_image] = useState(grid);
   const [modal_on, set_modal_on] = useState(true);
   // Toggle modal visibility
@@ -76,7 +77,7 @@ const CreateGrid = (navigation) => {
     set_modal(true);
   }
   useEffect(() => {
-    if (!turn) change_grid(4);
+    if (!turn) change_grid(Minimax(grid_state));
   }, [grid_state])
   // Check if game ended
   let answer, game_over = Check_state(grid_state);
@@ -123,7 +124,7 @@ const Game_screen = (navigation, route) => {
     <View style={styles.main_container}>
       <Game_background />
       <View style={styles.priority}>
-        <CreateGrid navigation={{ navigation }} />
+        <CreateGrid navigation={{ navigation }} route={{ route }} />
       </View>
     </View>
   );

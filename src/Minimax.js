@@ -10,7 +10,7 @@
 
 // Given a game state, use minimax to return index of best play
 const Minimax = (grid) => {
-    return Math.random
+    return Math.floor(Math.random() * 8);
 }
 
 /////////////////////////////////////////////////////////////////////////////////

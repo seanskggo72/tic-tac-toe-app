@@ -21,7 +21,7 @@ const HomeScreen = (navigation) => {
       <Particle_engine />
       <Text>Welcome to Home Screen</Text>
       {/* <Button title="1 Player" onPress={() => navigation.navigate('Game_ai')} /> */}
-      <Button title="Play" onPress={() => navigation.navigate('Game', { ai: false })} />
+      <Button title="Single Player" onPress={() => navigation.navigate('Game')} />
       <Button title="Instructions" onPress={() => navigation.navigate('Instructions')} />
     </View>
   );
