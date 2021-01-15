@@ -44,7 +44,10 @@ const Show_modal = (show, set_modal, reset_grid, { navigation }) => {
               colors={['#00d5ff', '#11adab', '#1ffffb']} style={styles.gradient}
               start={{ x: 0.0, y: 0.25 }} end={{ x: 0.5, y: 1.0 }}
             >
-              <Pressable style={styles.button} onPress={() => { reset_grid(); set_modal(false) }}
+              <Pressable style={styles.button} onPress={() => { 
+                reset_grid(); 
+                set_modal(false); 
+              }}
                 android_ripple={{ color: 'pink' }}
               >
                 <Text>Reset</Text>
