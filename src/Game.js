@@ -13,6 +13,7 @@ import { View, StyleSheet, Image, Pressable, Dimensions, Modal, Text } from 'rea
 import { LinearGradient } from 'expo-linear-gradient';
 import Game_background from './Svg_renderer';
 import Show_modal from './Modal';
+import Check_state from './Check_state';
 
 /////////////////////////////////////////////////////////////////////////////////
 // Globals
@@ -56,6 +57,7 @@ const CreateGrid = () => {
     }
     set_grid_image(grid_state);
   }
+  let answer = null;
   // Change a child of the grid to be rendered
   const change_grid = (index) => {
     // Calculate position on grid given index
@@ -70,11 +72,11 @@ const CreateGrid = () => {
       turn = !turn;
     }
     set_grid_image(temp);
+    // Check if game ended
+    game_over = Check_state(grid_state);
+    if (game_over) answer = Show_modal(modal_on, set_modal, reset_grid);
+    game_over = false;
   }
-  // Check if game ended
-  let answer, game_over = true;
-  if (game_over) answer = Show_modal(modal_on, set_modal, reset_grid);
-  game_over = false;
   return (
     grid_state.map((row, index) => {
       return (
