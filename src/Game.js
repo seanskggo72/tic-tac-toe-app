@@ -9,9 +9,10 @@
 /////////////////////////////////////////////////////////////////////////////////
 
 import React, { useState } from 'react';
-import { View, StyleSheet, Image, Pressable, Dimensions } from 'react-native';
+import { View, StyleSheet, Image, Pressable, Dimensions, Modal, Text } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import Game_background from './Svg_renderer';
+import Show_modal from './Modal';
 
 /////////////////////////////////////////////////////////////////////////////////
 // Globals
@@ -39,12 +40,17 @@ var turn = true;
 // Create 2D grid
 const CreateGrid = () => {
   const [grid_state, set_grid_image] = useState(grid);
+  const [modal_on, set_modal_on] = useState(true);
+  // Toggle modal visibility
+  const set_modal = (mode) => {
+    set_modal_on(mode);
+  }
   const change_grid = (index) => {
     // Calculate position on grid given index
     let temp = [...grid_state]
-    let col = Math.floor(index / 3),  row = index - (3 * col);
+    let col = Math.floor(index / 3), row = index - (3 * col);
     // If the button was already pressed, return immediately
-    if (temp[col][row][2]) return; 
+    if (temp[col][row][2]) return;
     // Else toggle turn and set the symbol for that index only
     else {
       temp[col][row][1] = turn;
@@ -57,6 +63,7 @@ const CreateGrid = () => {
     grid_state.map((row, index) => {
       return (
         <View style={styles.row_render} key={`row${index}`}>
+          {Show_modal(modal_on, set_modal)}
           {row.map(ele => { return node(ele[0], ele[1], change_grid) })}
         </View>
       )
