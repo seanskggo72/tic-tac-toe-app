@@ -11,7 +11,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, Image, Pressable, Dimensions } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import Game_background from './Svg_renderer';
+import { Game_background } from './Svg_renderer';
 import Show_modal from './Modal';
 import Check_state from './Check_state';
 import Minimax from './Minimax';
