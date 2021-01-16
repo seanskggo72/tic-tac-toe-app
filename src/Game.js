@@ -8,10 +8,13 @@
 // Imports
 /////////////////////////////////////////////////////////////////////////////////
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, Image, Pressable, Dimensions } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import Game_background from './Svg_renderer';
+import Show_modal from './Modal';
+import Check_state from './Check_state';
+import Minimax from './Minimax';
 
 /////////////////////////////////////////////////////////////////////////////////
 // Globals
@@ -31,20 +34,39 @@ const circle = require('../assets/circle.png');
 const cross = require('../assets/cross.png');
 // Keep track of turn
 var turn = true;
+var game_over = false;
 
 /////////////////////////////////////////////////////////////////////////////////
 // Functions
 /////////////////////////////////////////////////////////////////////////////////
 
 // Create 2D grid
-const CreateGrid = () => {
+const CreateGrid = ({ navigation }) => {
   const [grid_state, set_grid_image] = useState(grid);
+  const [modal_on, set_modal_on] = useState(true);
+  // Toggle modal visibility
+  const set_modal = (mode) => {
+    set_modal_on(mode);
+  }
+  // Reset grid
+  const reset_grid = () => {
+    for (let i = 0; i < 3; i++) {
+      for (let j = 0; j < 3; j++) {
+        grid_state[i][j][1] = null;
+        grid_state[i][j][2] = false;
+      }
+    }
+    set_grid_image(grid_state);
+    game_over = false;
+    turn = true;
+  }
+  // Change a child of the grid to be rendered
   const change_grid = (index) => {
     // Calculate position on grid given index
     let temp = [...grid_state]
-    let col = Math.floor(index / 3),  row = index - (3 * col);
+    let col = Math.floor(index / 3), row = index - (3 * col);
     // If the button was already pressed, return immediately
-    if (temp[col][row][2]) return; 
+    if (temp[col][row][2]) return;
     // Else toggle turn and set the symbol for that index only
     else {
       temp[col][row][1] = turn;
@@ -52,11 +74,18 @@ const CreateGrid = () => {
       turn = !turn;
     }
     set_grid_image(temp);
+    set_modal(true);
+  }
+  // Check if game ended
+  let answer, game_over = Check_state(grid_state);
+  if (game_over) {
+    answer = Show_modal(modal_on, set_modal, reset_grid, navigation)
   }
   return (
     grid_state.map((row, index) => {
       return (
         <View style={styles.row_render} key={`row${index}`}>
+          {answer}
           {row.map(ele => { return node(ele[0], ele[1], change_grid) })}
         </View>
       )
@@ -87,12 +116,12 @@ const node = (index, image, change_grid) => {
 }
 
 // Return 2D grid of buttons
-const Game_screen = () => {
+const Game_screen = (navigation) => {
   return (
     <View style={styles.main_container}>
       <Game_background />
       <View style={styles.priority}>
-        <CreateGrid />
+        <CreateGrid navigation={{ navigation }} />
       </View>
     </View>
   );
