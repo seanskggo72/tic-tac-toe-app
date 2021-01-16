@@ -7,9 +7,10 @@
 // Imports
 /////////////////////////////////////////////////////////////////////////////////
 
-import React from "react"
-import Svg, { Defs, Image, Path, Use } from "react-native-svg"
-import Background from '../svg/Game_background'
+import React from "react";
+import Svg, { Defs, Image, Path, Use } from "react-native-svg";
+import Background from '../svg/Game_background';
+import Home from '../svg/Home_background';
 
 /////////////////////////////////////////////////////////////////////////////////
 // Functions
@@ -55,7 +56,7 @@ const Home_background = (props) => {
           id="prefix__a"
           width={2880}
           height={1800}
-          xlinkHref={Background.game_background}
+          xlinkHref={Home.home_background}
         />
       </Defs>
       <Path fill="#fff" d="M0 0h810v1440H0z" />
