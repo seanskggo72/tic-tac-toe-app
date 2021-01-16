@@ -32,17 +32,23 @@ const HomeScreen = (navigation) => {
         <Image source={require('../assets/main.png')} style={styles.image} resizeMethod={'resize'} />
       </View>
       <View style={styles.buttons}>
-        <Pressable style={styles.button_style} onPress={() => navigation.navigate('Game_ai')}>
+        <Pressable style={styles.button_style} onPress={() => navigation.navigate('Game_ai')}
+          android_ripple={{ color: '#7a919e' }}
+        >
           <Text style={styles.text}>SINGLE PLAYER</Text>
         </Pressable>
-        <Pressable style={styles.button_style} onPress={() => navigation.navigate('Game')}>
+        <Pressable style={styles.button_style} onPress={() => navigation.navigate('Game')}
+          android_ripple={{ color: '#7a919e' }}
+        >
           <Text style={styles.text}>MULTIPLAYER</Text>
         </Pressable>
-        <Pressable style={styles.button_style} onPress={() => navigation.navigate('Instructions')}>
+        <Pressable style={styles.button_style} onPress={() => navigation.navigate('Instructions')}
+          android_ripple={{ color: '#7a919e' }}
+        >
           <Text style={styles.text}>HOW TO PLAY</Text>
         </Pressable>
 
-{/* 
+        {/* 
         <Button title="Single Player"
           onPress={() => navigation.navigate('Game_ai')} style={styles.button_style} /> */}
         {/* <Button title="Multiplayer" onPress={() => navigation.navigate('Game')} />
@@ -79,7 +85,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     width: width * 0.4,
     height: width * 0.12,
-    backgroundColor: '#038cfc',
+    backgroundColor: 'rgba(66, 153, 240, 0.7)',
     justifyContent: 'center',
     alignItems: 'center',
     elevation: 25,
