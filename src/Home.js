@@ -18,7 +18,7 @@ import Particle_engine from './Particles';
 const HomeScreen = (navigation) => {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Particle_engine />
+      {/* <Particle_engine /> */}
       <Text>Welcome to Home Screen</Text>
       <Button title="Multiplayer" onPress={() => navigation.navigate('Game')} />
       <Button title="Single Player" onPress={() => navigation.navigate('Game_ai')} />
