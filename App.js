@@ -10,6 +10,7 @@
 import 'react-native-gesture-handler';
 import React from 'react';
 import Game_screen from './src/Game';
+import Game_screen_ai from './src/Game_ai';
 import HomeScreen from './src/Home';
 import InstructionsScreen from './src/Instructions';
 import { NavigationContainer } from '@react-navigation/native';
@@ -30,8 +31,13 @@ const Instructions = ({ navigation }) => {
 }
 
 // Gamescreen Component
-const Game = ({ navigation, route }) => {
-  return Game_screen(navigation, route);
+const Game = ({ navigation }) => {
+  return Game_screen(navigation);
+}
+
+// Gamescreen + AI Component
+const Game_ai = ({ navigation }) => {
+  return Game_screen_ai(navigation);
 }
 
 // Stack Navigator
@@ -48,6 +54,7 @@ export default App = () => {
       <Stack.Navigator screenOptions={{ headerTransparent: true, headerTintColor: 'blue' }}>
         <Stack.Screen name="Home" component={Home} options={{ title: '' }} />
         <Stack.Screen name="Game" component={Game} options={{ title: '' }} />
+        <Stack.Screen name="Game_ai" component={Game_ai} options={{ title: '' }} />
         <Stack.Screen name="Instructions" component={Instructions} options={{ title: '' }} />
       </Stack.Navigator>
     </NavigationContainer >

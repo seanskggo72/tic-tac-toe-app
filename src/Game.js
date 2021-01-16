@@ -9,7 +9,7 @@
 /////////////////////////////////////////////////////////////////////////////////
 
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Image, Pressable, Dimensions, Modal, Text } from 'react-native';
+import { View, StyleSheet, Image, Pressable, Dimensions } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import Game_background from './Svg_renderer';
 import Show_modal from './Modal';
@@ -76,9 +76,6 @@ const CreateGrid = ({ navigation }) => {
     set_grid_image(temp);
     set_modal(true);
   }
-  useEffect(() => {
-    if (!turn) change_grid(Minimax(grid_state));
-  }, [grid_state])
   // Check if game ended
   let answer, game_over = Check_state(grid_state);
   if (game_over) {
@@ -119,12 +116,12 @@ const node = (index, image, change_grid) => {
 }
 
 // Return 2D grid of buttons
-const Game_screen = (navigation, route) => {
+const Game_screen = (navigation) => {
   return (
     <View style={styles.main_container}>
       <Game_background />
       <View style={styles.priority}>
-        <CreateGrid navigation={{ navigation }} route={{ route }} />
+        <CreateGrid navigation={{ navigation }} />
       </View>
     </View>
   );
