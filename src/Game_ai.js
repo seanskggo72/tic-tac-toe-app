@@ -77,7 +77,7 @@ const CreateGrid = ({ navigation }) => {
     set_modal(true);
   }
   useEffect(() => {
-    if (!turn) change_grid(Minimax(grid_state, !turn));
+    if (!turn) change_grid(Minimax(grid_state, turn));
   }, [grid_state])
   // Check if game ended
   let answer, game_over = Check_state(grid_state);
