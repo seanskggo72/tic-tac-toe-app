@@ -35,24 +35,18 @@ const HomeScreen = (navigation) => {
         <Pressable style={styles.button_style} onPress={() => navigation.navigate('Game_ai')}
           android_ripple={{ color: '#7a919e' }}
         >
-          <Text style={styles.text}>SINGLE PLAYER</Text>
+          <Text style={styles.text}>Player vs AI</Text>
         </Pressable>
         <Pressable style={styles.button_style} onPress={() => navigation.navigate('Game')}
           android_ripple={{ color: '#7a919e' }}
         >
-          <Text style={styles.text}>MULTIPLAYER</Text>
+          <Text style={styles.text}>Player vs Player</Text>
         </Pressable>
         <Pressable style={styles.button_style} onPress={() => navigation.navigate('Instructions')}
           android_ripple={{ color: '#7a919e' }}
         >
-          <Text style={styles.text}>HOW TO PLAY</Text>
+          <Text style={styles.text}>How To Play</Text>
         </Pressable>
-
-        {/* 
-        <Button title="Single Player"
-          onPress={() => navigation.navigate('Game_ai')} style={styles.button_style} /> */}
-        {/* <Button title="Multiplayer" onPress={() => navigation.navigate('Game')} />
-        <Button title="Instructions" onPress={() => navigation.navigate('Instructions')} /> */}
       </View>
     </View>
   );

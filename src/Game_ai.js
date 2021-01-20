@@ -35,6 +35,7 @@ const cross = require('../assets/cross.png');
 // Keep track of turn
 var turn = true;
 var game_over = false;
+var winner = null;
 
 /////////////////////////////////////////////////////////////////////////////////
 // Functions
@@ -57,8 +58,7 @@ const CreateGrid = ({ navigation }) => {
       }
     }
     set_grid_image(grid_state);
-    game_over = false;
-    turn = true;
+    game_over = false, turn = true, winner = null;
   }
   // Change a child of the grid to be rendered
   const change_grid = (index) => {
@@ -73,16 +73,16 @@ const CreateGrid = ({ navigation }) => {
       temp[col][row][2] = true;
       turn = !turn;
     }
-    set_grid_image(temp);
-    set_modal(true);
+    set_grid_image(temp), set_modal(true);
   }
   useEffect(() => {
     if (!turn) change_grid(Minimax(grid_state, turn));
   }, [grid_state])
   // Check if game ended
   let answer, game_over = Check_state(grid_state);
-  if (game_over) {
-    answer = Show_modal(modal_on, set_modal, reset_grid, navigation)
+  if (game_over[0]) {
+    if (winner === null) winner = game_over[1];
+    answer = Show_modal(modal_on, set_modal, reset_grid, navigation, winner);
   }
   return (
     grid_state.map((row, index) => {
