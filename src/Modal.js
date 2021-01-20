@@ -16,7 +16,8 @@ import { LinearGradient } from 'expo-linear-gradient';
 /////////////////////////////////////////////////////////////////////////////////
 
 // Function that determines whether to show the modal or not
-const Show_modal = (show, set_modal, reset_grid, { navigation }) => {
+const Show_modal = (show, set_modal, reset_grid, { navigation }, winner) => {
+  console.log(winner)
   if (show) {
     return (
       <Modal
