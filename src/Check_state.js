@@ -14,7 +14,7 @@ const Check_state = (gd) => {
     if (gd[i][0][1] === true && gd[i][1][1] === true && gd[i][2][1] === true) return [true, 'circle'];
     if (gd[i][0][1] === false && gd[i][1][1] === false && gd[i][2][1] === false) return [true, 'cross'];
     if (gd[0][i][1] === true && gd[1][i][1] === true && gd[2][i][1] === true) return [true, 'circle'];
-    if (gd[0][i][1] === false && gd[1][i][1] === false && gd[2][i][1] === false) return true;
+    if (gd[0][i][1] === false && gd[1][i][1] === false && gd[2][i][1] === false) return [true, 'cross'];
   }
   // check diagonals
   if (gd[0][0][1] === true && gd[1][1][1] === true && gd[2][2][1] === true) return [true, 'circle'];
