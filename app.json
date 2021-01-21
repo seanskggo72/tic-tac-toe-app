@@ -1,14 +1,14 @@
 {
   "expo": {
-    "name": "tic-tac-toe-app",
-    "slug": "tic-tac-toe-app",
+    "name": "Tic Tac Toe AI",
+    "slug": "TicTacToeAI",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#e3faff"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -23,7 +23,9 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "versionCode": 1,
+      "package": "dev.quikk.tictactoeai"
     },
     "web": {
       "favicon": "./assets/favicon.png"
