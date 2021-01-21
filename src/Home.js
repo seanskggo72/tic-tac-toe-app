@@ -8,7 +8,7 @@
 /////////////////////////////////////////////////////////////////////////////////
 
 import React from 'react';
-import { Text, View, Button, StyleSheet, Image, Dimensions, Pressable } from 'react-native';
+import { Text, View, StyleSheet, Image, Dimensions, Pressable } from 'react-native';
 import { Home_background } from './Svg_renderer';
 
 /////////////////////////////////////////////////////////////////////////////////
