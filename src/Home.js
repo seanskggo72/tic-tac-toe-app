@@ -8,9 +8,8 @@
 /////////////////////////////////////////////////////////////////////////////////
 
 import React from 'react';
-import { Text, View, Button, StyleSheet, Image, Dimensions, Pressable } from 'react-native';
+import { Text, View, StyleSheet, Image, Dimensions, Pressable } from 'react-native';
 import { Home_background } from './Svg_renderer';
-import Particle_engine from './Particles';
 
 /////////////////////////////////////////////////////////////////////////////////
 // Globals
@@ -26,7 +25,6 @@ const width = Dimensions.get('window').width;
 const HomeScreen = (navigation) => {
   return (
     <View style={styles.main_container}>
-      {/* <Particle_engine /> */}
       <Home_background />
       <View style={styles.logo}>
         <Image source={require('../assets/main.png')} style={styles.image} resizeMethod={'resize'} />
@@ -66,14 +64,14 @@ const styles = StyleSheet.create({
   logo: {
     position: 'absolute',
     alignItems: 'center',
-    width: width * 0.55,
+    width: width * 0.5,
     aspectRatio: 1,
-    top: height * 0.12,
+    top: (height - width)/4,
   },
   buttons: {
     position: 'absolute',
     alignItems: 'center',
-    bottom: height * 0.36,
+    top: height * 0.5,
   },
   button_style: {
     borderRadius: 8,
