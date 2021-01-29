@@ -9,51 +9,33 @@ Created December - January 2021.
 
 ## About the app
 
-This app was created using React Native and Expo. The app is currently in beta testing phase and is available on Google Play:
+This app was created using React Native (ES6 Javascript) and Expo from scratch. The app is currently in beta testing phase and is available on Google Play:
 
 https://play.google.com/store/apps/details?id=dev.quikk.tictactoeai
 
-
-
-Notes:
-
-* will change readme content before going public :D
-
-This repo contains all the actual app development files and dependencies.
-
-Javascript/React Native
-
-Futher installs required (npm modules for navigating between pages on app):
-
-```npm install @react-navigation/native @react-navigation/stack```
-
-UI libraries to use later:
+## Design and Dependencies
 
 * Button design
  
  ```react-native-linear-gradient```
  
- * Game Engine
+ * App navigation
+ 
+ ```@react-navigation/native"```
+
+ * App Background - Designed and exported as SVG
+ 
+ ```react-native-svg```
+
+ * Game Engine - later removed due to performance issues on older Android SDKs
  
  ```react-native-game-engine```
- 
- * Animations
- 
- ```react-native-animatable```
- 
- Additional Notes:
- 
- * Use .svg files instead of .png etc (svg files do not lose resolution when resized and are smaller than png files)
 
-## SVG Integration:
+## App Implementation
 
-1. Convert .svg file into JSX ussing the following site:
+Created using functional components and hooks. This app did not require state management. All designs including logo were created using Canva and/or Adobe Photoshop.'
 
-https://svg2jsx.com/
-
-2. Convert the JSX into react-native-svg component using the following site (tick the react native box):
+SVG files were converted to JSX using:
 
 https://react-svgr.com/playground/
-
-3. Use that component to display SVG
 
