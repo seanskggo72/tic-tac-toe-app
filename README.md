@@ -1,9 +1,19 @@
-# tic-tac-toe-app
+# Tic Tac Toe AI App
+
+Mobile app development project emulating a professionally designed and functioning app.
+
+Based on a simple and classic game - Tic Tac Toe.
+
+Created December - January 2021.
 
 
-Development Repo for mobile game dev project 
+## About the app
 
-Sean 2021
+This app was created using React Native and Expo. The app is currently in beta testing phase and is available on Google Play:
+
+https://play.google.com/store/apps/details?id=dev.quikk.tictactoeai
+
+
 
 Notes:
 
