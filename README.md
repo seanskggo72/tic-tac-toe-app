@@ -13,6 +13,10 @@ This app was created using React Native (ES6 Javascript) and Expo from scratch. 
 
 https://play.google.com/store/apps/details?id=dev.quikk.tictactoeai
 
+Prototype of this project was created using Python3 and PyQt5 and is available in my other repository at:
+
+https://github.com/seanskggo72/tic-tac-toe-AI
+
 ## Design and Dependencies
 
 * Button design
