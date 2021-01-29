@@ -33,7 +33,7 @@ https://play.google.com/store/apps/details?id=dev.quikk.tictactoeai
 
 ## App Implementation
 
-Created using functional components and hooks. This app did not require state management. All designs including logo were created using Canva and/or Adobe Photoshop.'
+Created using functional components and hooks. This app did not require state management. All designs including logo were created using Canva and/or Adobe Photoshop.
 
 SVG files were converted to JSX using:
 
