@@ -19,8 +19,7 @@ https://github.com/seanskggo72/tic-tac-toe-AI
 
 ## About the Trademark
 
-Quikk is the app's trademark and was created with my long time colleague (A current computer science student at Macquarie University). We are aiming to develop small apps to develop and hone our skills for our future career aspirations in the software industry.   
-
+Quikk is the app's trademark and was created with my long time colleague (A current computer science student at Macquarie University). We are aiming to develop small mobile and web apps to hone our skills while providing free software for the general public. 
 ## Design and Dependencies
 
 * Button design
